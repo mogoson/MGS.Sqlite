@@ -273,9 +273,9 @@
 
 - Demos in the path "MGS.Packages/Sqlite/Demo/" provide reference to you.
 
-## Preview
+## Source
 
-![Sqlite Operate](./Attachment/images/SqliteOperate.PNG)
+- https://github.com/mogoson/MGS.Sqlite.
 
 ------
 

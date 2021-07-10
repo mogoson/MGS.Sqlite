@@ -1,0 +1,669 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MGS.Sqlite</name>
+    </assembly>
+    <members>
+        <member name="T:MGS.Sqlite.GenericDataBase">
+            <summary>
+            Generic sqlite data base.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.GenericDataBase.#ctor(System.String)">
+            <summary>
+            Constructor of GenericDataBase.
+            </summary>
+            <param name="file">Data base file.</param>
+        </member>
+        <member name="M:MGS.Sqlite.GenericDataBase.SelectView``1(System.String)">
+            <summary>
+            Select sqlite view from data base as IGenericView.
+            </summary>
+            <typeparam name="T">Type of view row.</typeparam>
+            <param name="name">Name of view.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MGS.Sqlite.GenericDataBase.CreateTable``1(System.String)">
+            <summary>
+            Create sqlite table for the type T row. 
+            </summary>
+            <typeparam name="T">Type of table row.</typeparam>
+            <param name="name">Name of table.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.GenericDataBase.SelectTable``1(System.String)">
+            <summary>
+            Select sqlite table from data base as IGenericTable.
+            </summary>
+            <typeparam name="T">Type of table row.</typeparam>
+            <param name="name">Name of table.</param>
+            <returns></returns>
+        </member>
+        <member name="T:MGS.Sqlite.GenericTable`1">
+            <summary>
+            Generic sqlite table.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:MGS.Sqlite.GenericTable`1.source">
+            <summary>
+            Instance of sqlite source.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.GenericTable`1.#ctor(MGS.Sqlite.ISqliteTable)">
+            <summary>
+            Constructor of GenericTable.
+            </summary>
+            <param name="table">Instance of sqlite table.</param>
+        </member>
+        <member name="M:MGS.Sqlite.GenericTable`1.Select(System.String)">
+            <summary>
+            Select rows from source.
+            </summary>
+            <param name="command">Select command [Select all if null].</param>
+            <returns>Selected rows.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.GenericTable`1.Insert(`0)">
+            <summary>
+            Insert row to table.
+            </summary>
+            <param name="row"></param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.GenericTable`1.Update(`0)">
+            <summary>
+            Update row to table.
+            </summary>
+            <param name="row"></param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.GenericTable`1.Delete(`0)">
+            <summary>
+            Delete row from table.
+            </summary>
+            <param name="row"></param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.GenericTable`1.Delete(System.Object)">
+            <summary>
+            Delete row from table.
+            </summary>
+            <param name="key">Value of the primary key.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.GenericTable`1.Commit">
+            <summary>
+            Commit modifications to data base.
+            </summary>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="T:MGS.Sqlite.GenericView`1">
+            <summary>
+            Generic sqlite view.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:MGS.Sqlite.GenericView`1.source">
+            <summary>
+            Instance of sqlite source.
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.GenericView`1.dataTable">
+            <summary>
+            DataTable of last selected results.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.GenericView`1.#ctor(MGS.Sqlite.ISqliteView)">
+            <summary>
+            Constructor of GenericView.
+            </summary>
+            <param name="view">Instance of sqlite view.</param>
+        </member>
+        <member name="M:MGS.Sqlite.GenericView`1.Select(System.String)">
+            <summary>
+            Select rows from source.
+            </summary>
+            <param name="command">Select command [Select all if null].</param>
+            <returns>Selected rows.</returns>
+        </member>
+        <member name="T:MGS.Sqlite.IGenericDataBase">
+            <summary>
+            Interface for generic sqlite data base.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.IGenericDataBase.SelectView``1(System.String)">
+            <summary>
+            Select sqlite view from data base as IGenericView.
+            </summary>
+            <typeparam name="T">Type of view row.</typeparam>
+            <param name="name">Name of view.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MGS.Sqlite.IGenericDataBase.CreateTable``1(System.String)">
+            <summary>
+            Create sqlite table for the type T row. 
+            </summary>
+            <typeparam name="T">Type of table row.</typeparam>
+            <param name="name">Name of table.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.IGenericDataBase.SelectTable``1(System.String)">
+            <summary>
+            Select sqlite table from data base as IGenericTable.
+            </summary>
+            <typeparam name="T">Type of table row.</typeparam>
+            <param name="name">Name of table.</param>
+            <returns></returns>
+        </member>
+        <member name="T:MGS.Sqlite.IGenericTable`1">
+            <summary>
+            Interface for generic sqlite table.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:MGS.Sqlite.IGenericTable`1.Insert(`0)">
+            <summary>
+            Insert row to table.
+            </summary>
+            <param name="row"></param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.IGenericTable`1.Update(`0)">
+            <summary>
+            Update row to table.
+            </summary>
+            <param name="row"></param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.IGenericTable`1.Delete(`0)">
+            <summary>
+            Delete row from table.
+            </summary>
+            <param name="row"></param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.IGenericTable`1.Delete(System.Object)">
+            <summary>
+            Delete row from table.
+            </summary>
+            <param name="key">Value of the primary key.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.IGenericTable`1.Commit">
+            <summary>
+            Commit modifications to data base.
+            </summary>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="T:MGS.Sqlite.IGenericView`1">
+            <summary>
+            Interface for generic sqlite view.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.IGenericView`1.Select(System.String)">
+            <summary>
+            Select rows from source.
+            </summary>
+            <param name="command">Select command [Select all if null].</param>
+            <returns>Selected rows.</returns>
+        </member>
+        <member name="T:MGS.Sqlite.ITableRow">
+            <summary>
+            Interface for generic sqlite table row.
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.ITableRow.Statement">
+            <summary>
+            Statement of the columns.
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.ITableRow.PrimaryKey">
+            <summary>
+            Name of primary key.
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.ITableRow.PrimaryValue">
+            <summary>
+            Value of primary key.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.ITableRow.FillTo(System.Data.DataRow)">
+            <summary>
+            Fill this object to data row.
+            </summary>
+            <param name="row"></param>
+        </member>
+        <member name="T:MGS.Sqlite.IViewRow">
+            <summary>
+            Interface for generic sqlite view row.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.IViewRow.FillFrom(System.Data.DataRow)">
+            <summary>
+            Fill this object from data row.
+            </summary>
+            <param name="row"></param>
+        </member>
+        <member name="T:MGS.Sqlite.TableRow">
+            <summary>
+            Generic sqlite table row base on reflection.
+            [A better way is implement the interface ITableRow by yourself]
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.TableRow.Statement">
+            <summary>
+            Statement of the columns.
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.TableRow.PrimaryKey">
+            <summary>
+            Name of primary key.
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.TableRow.PrimaryValue">
+            <summary>
+            Value of primary key.
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.TableRow.primaryField">
+            <summary>
+            Field info of primary field.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.TableRow.FillTo(System.Data.DataRow)">
+            <summary>
+            Fill this object to data row.
+            </summary>
+            <param name="row"></param>
+        </member>
+        <member name="M:MGS.Sqlite.TableRow.Initialize">
+            <summary>
+            Initialize the follow infos
+            [sqliteFields, primaryField, Statement]
+            </summary>
+        </member>
+        <member name="T:MGS.Sqlite.ViewRow">
+            <summary>
+            Generic sqlite view row base on reflection.
+            [A better way is implement the interface IViewRow by yourself]
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.ViewRow.columnFields">
+            <summary>
+            Field info of column fields.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.ViewRow.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.ViewRow.FillFrom(System.Data.DataRow)">
+            <summary>
+            Fill this object from data row.
+            </summary>
+            <param name="row"></param>
+        </member>
+        <member name="M:MGS.Sqlite.ViewRow.Initialize">
+            <summary>
+            Initialize the sqliteFields.
+            </summary>
+        </member>
+        <member name="T:MGS.Sqlite.ISqliteDataBase">
+            <summary>
+            Interface for sqlite data base.
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.ISqliteDataBase.Handler">
+            <summary>
+            Sqlite handler of this data base.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteDataBase.CreateView(System.String)">
+            <summary>
+            Create sqlite view if not exists.
+            </summary>
+            <param name="statement">Statement sql for view.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteDataBase.SelectView(System.String)">
+            <summary>
+            Select view from data base.
+            </summary>
+            <param name="name">Name of view.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteDataBase.DeleteView(System.String)">
+            <summary>
+            Delete view from data base.
+            </summary>
+            <param name="name">Name of view.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteDataBase.CreateTable(System.String)">
+            <summary>
+            Create sqlite table if not exists.
+            </summary>
+            <param name="statement">Statement sql for table.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteDataBase.SelectTable(System.String)">
+            <summary>
+            Select table from data base.
+            </summary>
+            <param name="name">Name of table.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteDataBase.DeleteTable(System.String)">
+            <summary>
+            Delete the table from data base.
+            </summary>
+            <param name="name">The name of table.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="T:MGS.Sqlite.ISqliteHandler">
+            <summary>
+            Interface for sqlite handler.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteHandler.ExecuteQuery(System.String,Mono.Data.Sqlite.SqliteParameter[])">
+            <summary>
+            Execute command with args.
+            </summary>
+            <param name="command"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteHandler.ExecuteScalar(System.String,Mono.Data.Sqlite.SqliteParameter[])">
+            <summary>
+            Execute command with args.
+            </summary>
+            <param name="command"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteHandler.ExecuteNonQuery(System.String,Mono.Data.Sqlite.SqliteParameter[])">
+            <summary>
+            Execute command with args.
+            </summary>
+            <param name="command"></param>
+            <param name="args"></param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteHandler.ExecuteNonQuery(System.Data.DataTable,System.String,Mono.Data.Sqlite.SqliteParameter[])">
+            <summary>
+            Execute update table to data base by command with args.
+            </summary>
+            <param name="table"></param>
+            <param name="command"></param>
+            <param name="args"></param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="T:MGS.Sqlite.ISqliteTable">
+            <summary>
+            Interface for sqlite table.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteTable.Update(System.Data.DataTable)">
+            <summary>
+            Update rows modifications to table.
+            </summary>
+            <param name="table"></param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="T:MGS.Sqlite.ISqliteView">
+            <summary>
+            Interface for sqlite view.
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.ISqliteView.Name">
+            <summary>
+            Name of source.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteView.Select(System.String)">
+            <summary>
+            Select rows from source.
+            </summary>
+            <param name="command">Select command [Select all if null].</param>
+            <returns></returns>
+        </member>
+        <member name="T:MGS.Sqlite.SqliteConstant">
+            <summary>
+            Constant for sqlite.
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConstant.PRIMARY_KEY">
+            <summary>
+            PRIMARY KEY
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConstant.UNIQUE">
+            <summary>
+            UNIQUE
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConstant.NOT_NULL">
+            <summary>
+            NOT NULL
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConstant.DEFAULT">
+            <summary>
+            DEFAULT
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConstant.SQLITE_MASTER">
+            <summary>
+            sqlite_master.
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConstant.CONNECTION_FORMAT">
+            <summary>
+            Format of connection string.
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConstant.CMD_CREATE_IF_FORMAT">
+            <summary>
+            Format of create if not exists command.
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConstant.CMD_SELECT_FORMAT">
+            <summary>
+            Format of select command.
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConstant.CMD_SELECT_MASTER_TYPE_NAME_FORMAT">
+            <summary>
+            Format of select sqlite_master by type and name command.
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConstant.CMD_DROP_FORMAT">
+            <summary>
+            Format of delete command.
+            </summary>
+        </member>
+        <member name="T:MGS.Sqlite.SqliteDataBase">
+            <summary>
+            Sqlite data base.
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.SqliteDataBase.Handler">
+            <summary>
+            Sqlite handler of this data base.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteDataBase.#ctor(System.String)">
+            <summary>
+            Constructor of SqliteDataBase.
+            </summary>
+            <param name="file">Data base file.</param>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteDataBase.CreateView(System.String)">
+            <summary>
+            Create sqlite view if not exists.
+            </summary>
+            <param name="statement">Statement sql for view.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteDataBase.SelectView(System.String)">
+            <summary>
+            Select view from data base.
+            </summary>
+            <param name="name">Name of view.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteDataBase.DeleteView(System.String)">
+            <summary>
+            Delete view from data base.
+            </summary>
+            <param name="name">Name of view.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteDataBase.CreateTable(System.String)">
+            <summary>
+            Create sqlite table if not exists.
+            </summary>
+            <param name="statement">Statement sql for table.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteDataBase.SelectTable(System.String)">
+            <summary>
+            Select table from data base.
+            </summary>
+            <param name="name">Name of table.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteDataBase.DeleteTable(System.String)">
+            <summary>
+            Delete the table from data base.
+            </summary>
+            <param name="name">The name of table.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="T:MGS.Sqlite.ColumnFieldAttribute">
+            <summary>
+            Attribute for column field.
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.ColumnFieldAttribute.PrimaryKey">
+            <summary>
+            The column is primary key?
+            [Only one primary key is set for a table;
+            Do not modify the value of primary key once it is set]
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.ColumnFieldAttribute.Unique">
+            <summary>
+            The column is unique?
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.ColumnFieldAttribute.NotNull">
+            <summary>
+            The column is not null?
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.ColumnFieldAttribute.Default">
+            <summary>
+            The default value of column.
+            </summary>
+        </member>
+        <member name="T:MGS.Sqlite.SqliteHandler">
+            <summary>
+            Handler for sqlite data base.
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteHandler.connectionString">
+            <summary>
+            Connection string.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteHandler.#ctor(System.String)">
+            <summary>
+            Constructor of SqliteHandler.
+            </summary>
+            <param name="uri">Uri of data source.</param>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteHandler.ExecuteQuery(System.String,Mono.Data.Sqlite.SqliteParameter[])">
+            <summary>
+            Execute command with args.
+            </summary>
+            <param name="command"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteHandler.ExecuteScalar(System.String,Mono.Data.Sqlite.SqliteParameter[])">
+            <summary>
+            Execute command with args.
+            </summary>
+            <param name="command"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteHandler.ExecuteNonQuery(System.String,Mono.Data.Sqlite.SqliteParameter[])">
+            <summary>
+            Execute command with args.
+            </summary>
+            <param name="command"></param>
+            <param name="args"></param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteHandler.ExecuteNonQuery(System.Data.DataTable,System.String,Mono.Data.Sqlite.SqliteParameter[])">
+            <summary>
+            Execute update table to data base by command with args.
+            </summary>
+            <param name="table"></param>
+            <param name="command"></param>
+            <param name="args"></param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="T:MGS.Sqlite.SqliteTable">
+            <summary>
+            Sqlite table.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteTable.#ctor(System.String,MGS.Sqlite.ISqliteHandler)">
+            <summary>
+            Constructor of SqliteTable.
+            </summary>
+            <param name="name">Name of table.</param>
+            <param name="handler">Instance of sqlite handler.</param>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteTable.Update(System.Data.DataTable)">
+            <summary>
+            Update rows modifications to table.
+            </summary>
+            <param name="table"></param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="T:MGS.Sqlite.SqliteView">
+            <summary>
+            Sqlite view.
+            </summary>
+        </member>
+        <member name="P:MGS.Sqlite.SqliteView.Name">
+            <summary>
+            Name of source.
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteView.handler">
+            <summary>
+            Instance of sqlite handler.
+            </summary>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteView.#ctor(System.String,MGS.Sqlite.ISqliteHandler)">
+            <summary>
+            Constructor of SqliteView.
+            </summary>
+            <param name="name">Name of view.</param>
+            <param name="handler">Instance of sqlite handler.</param>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteView.Select(System.String)">
+            <summary>
+            Select rows from source.
+            </summary>
+            <param name="command">Select command [Select all if null].</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
