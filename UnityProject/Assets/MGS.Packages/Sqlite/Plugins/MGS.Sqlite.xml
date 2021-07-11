@@ -50,6 +50,11 @@
             Instance of sqlite source.
             </summary>
         </member>
+        <member name="F:MGS.Sqlite.GenericTable`1.dataTable">
+            <summary>
+            DataTable of last selected results.
+            </summary>
+        </member>
         <member name="M:MGS.Sqlite.GenericTable`1.#ctor(MGS.Sqlite.ISqliteTable)">
             <summary>
             Constructor of GenericTable.
@@ -106,11 +111,6 @@
         <member name="F:MGS.Sqlite.GenericView`1.source">
             <summary>
             Instance of sqlite source.
-            </summary>
-        </member>
-        <member name="F:MGS.Sqlite.GenericView`1.dataTable">
-            <summary>
-            DataTable of last selected results.
             </summary>
         </member>
         <member name="M:MGS.Sqlite.GenericView`1.#ctor(MGS.Sqlite.ISqliteView)">
@@ -616,6 +616,12 @@
             <param name="command"></param>
             <param name="args"></param>
             <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteHandler.CreateFile(System.String)">
+            <summary>
+            Create data base file.
+            </summary>
+            <param name="file">Path of data base file.</param>
         </member>
         <member name="T:MGS.Sqlite.SqliteTable">
             <summary>
