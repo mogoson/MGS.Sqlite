@@ -95,7 +95,7 @@
 - Relate to sqlite file.
 
   ```C#
-  //Relate to data base file, this operate does not create the file.
+  //Relate to data base file, this operate will create the file if it does not exists.
   var dbFile = string.Format("{0}/TestDB.db", Environment.CurrentDirectory);
   var dataBase = new GenericDataBase(dbFile);
   ```
