@@ -234,14 +234,14 @@
   //Create table if not exists.
   var lines = dataBase.CreateTable<PersonT>("table_person");
   
-  //Select rows from table as custom structure.
+  //Select table from data base.
   var table = dataBase.SelectTable<PersonT>("table_person");
-  var persons = table.Select();//Select to init data table.
   
   //Insert new row.
   table.Insert(new PersonT() { id = 0, name = "name" });
   var lines = table.Commit();//Commit to sqlite table.
   
+  //Select rows from table as custom structure.
   var persons = table.Select();
   var enumer = persons.GetEnumerator();
   enumer.MoveNext();
@@ -264,8 +264,10 @@
   //Create view if not exists.
   var lines = dataBase.CreateView("view_person as select * from table_person");
   
-  //Select rows from table as custom structure.
+  //Select view from data base.
   var view = dataBase.SelectView<PersonT>("view_person");
+  
+  //Select rows from view as custom structure.
   var persons = view.Select();
   ```
 
