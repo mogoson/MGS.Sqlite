@@ -27,6 +27,7 @@ namespace MGS.Sqlite
         string ins_ID = string.Empty;
         string ins_Name = string.Empty;
         string del_ID = string.Empty;
+        Vector2 pos;
 
         private void Awake()
         {
@@ -74,7 +75,7 @@ namespace MGS.Sqlite
 
             if (persons != null && persons.Count > 0)
             {
-                GUILayout.BeginVertical("Box");
+                pos = GUILayout.BeginScrollView(pos, "Box");
                 foreach (var item in persons)
                 {
                     GUILayout.BeginHorizontal();
@@ -82,7 +83,7 @@ namespace MGS.Sqlite
                     GUILayout.Label(item.name);
                     GUILayout.EndHorizontal();
                 }
-                GUILayout.EndVertical();
+                GUILayout.EndScrollView();
             }
             #endregion
 
