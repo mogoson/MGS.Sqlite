@@ -1,6 +1,6 @@
 [TOC]
 
-﻿# MGS.Sqlite
+﻿# MGS.Sqlite.dll
 
 ## Summary
 
@@ -8,12 +8,14 @@
 
 ## Environment
 
-- Unity 5.0 or above.
 - .Net Framework 3.5 or above.
 
-## Platform
+## Dependence
 
-- Windows
+- System.dll
+- System.Data.dll
+- Mono.Data.Sqlite.dll
+- MGS.Logger.dll
 
 ## Demand
 
@@ -236,13 +238,9 @@
   var persons = view.Select();
   ```
 
-## Demo
+------
 
-- Demos in the path "MGS.Packages/Sqlite/Demo/" provide reference to you.
-
-## Source
-
-- https://github.com/mogoson/MGS.Sqlite.
+[Previous](../../README.md)
 
 ------
 

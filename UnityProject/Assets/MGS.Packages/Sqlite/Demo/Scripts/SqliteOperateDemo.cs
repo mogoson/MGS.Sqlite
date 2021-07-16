@@ -16,6 +16,7 @@ using UnityEngine;
 
 namespace MGS.Sqlite
 {
+    [AddComponentMenu("MGS/Demo/SqliteOperateDemo")]
     public class SqliteOperateDemo : MonoBehaviour
     {
         GenericDataBase dataBase;
