@@ -12,7 +12,7 @@
 
 using System.Data;
 
-namespace MGS.Sqlite
+namespace MGS.Sqlite.Demo
 {
     /// <summary>
     /// Implement the ITableRow interface, the simple way is to inherit from TableRow.

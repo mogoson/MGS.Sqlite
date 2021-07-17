@@ -14,9 +14,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MGS.Sqlite
+namespace MGS.Sqlite.Demo
 {
-    [AddComponentMenu("MGS/Demo/SqliteOperateDemo")]
     public class SqliteOperateDemo : MonoBehaviour
     {
         GenericDataBase dataBase;
