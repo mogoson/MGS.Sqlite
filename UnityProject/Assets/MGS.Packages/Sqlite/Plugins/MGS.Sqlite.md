@@ -28,7 +28,7 @@
 - Sqlite.
 
   ```C#
-  public sealed class SqliteConstant{}
+  public sealed class SqliteConst{}
   
   public class SqliteDataBase : ISqliteDataBase{}
   
@@ -112,6 +112,27 @@
   
   //Delete view.
   var lines = dataBase.DeleteView("view_v0");
+  ```
+  
+- Operate sqlite trigger.
+
+  ```C#
+  //Create sqlite trigger if not exists.
+  var statement = "trigger_t0 AFTER INSERT ON table_t0 BEGIN INSERT INTO table_t1(id, salary)VALUES(new.ID, 0); END";
+  var lines = dataBase.CreateTrigger(statement);
+  
+  //Create sqlite trigger if not exists.
+  var name = "trigger_t0";
+  var when = SqliteConst.AFTER;
+  var action = SqliteConst.INSERT;
+  var table = "table_t0";
+  string scope = null;//SqliteConst.FOR_EACH_ROW
+  string where = null;//id>=0
+  var code = "INSERT INTO table_t1(id, salary)VALUES(new.ID, 0)";
+  var lines = dataBase.CreateTrigger(name, when, action, table, scope, where, code);
+  
+  //Delete the trigger from data base.
+  var lines = dataBase.DeleteTrigger("trigger_t0");
   ```
 
 ### Expand

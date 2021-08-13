@@ -15,6 +15,14 @@
             </summary>
             <param name="file">Data base file.</param>
         </member>
+        <member name="M:MGS.Sqlite.GenericDataBase.Select``1(System.String)">
+            <summary>
+            Select data rows as view rows from data base.
+            </summary>
+            <typeparam name="T">Type of view row.</typeparam>
+            <param name="command">Select command.</param>
+            <returns></returns>
+        </member>
         <member name="M:MGS.Sqlite.GenericDataBase.SelectView``1(System.String)">
             <summary>
             Select sqlite view from data base as IGenericView.
@@ -130,6 +138,14 @@
             <summary>
             Interface for generic sqlite data base.
             </summary>
+        </member>
+        <member name="M:MGS.Sqlite.IGenericDataBase.Select``1(System.String)">
+            <summary>
+            Select data rows as view rows from data base.
+            </summary>
+            <typeparam name="T">Type of view row.</typeparam>
+            <param name="command">Select command.</param>
+            <returns></returns>
         </member>
         <member name="M:MGS.Sqlite.IGenericDataBase.SelectView``1(System.String)">
             <summary>
@@ -306,7 +322,7 @@
         </member>
         <member name="M:MGS.Sqlite.ViewRow.Initialize">
             <summary>
-            Initialize the sqliteFields.
+            Initialize the columnFields.
             </summary>
         </member>
         <member name="T:MGS.Sqlite.ISqliteDataBase">
@@ -318,6 +334,13 @@
             <summary>
             Sqlite handler of this data base.
             </summary>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteDataBase.Select(System.String)">
+            <summary>
+            Select data rows from data base.
+            </summary>
+            <param name="command">Select command.</param>
+            <returns></returns>
         </member>
         <member name="M:MGS.Sqlite.ISqliteDataBase.CreateView(System.String)">
             <summary>
@@ -359,6 +382,33 @@
             Delete the table from data base.
             </summary>
             <param name="name">The name of table.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteDataBase.CreateTrigger(System.String)">
+            <summary>
+            Create sqlite trigger if not exists.
+            </summary>
+            <param name="statement">Statement sql for trigger.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteDataBase.CreateTrigger(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Create sqlite trigger if not exists.
+            </summary>
+            <param name="name">The name of trigger.</param>
+            <param name="when">[BEFORE/AFTER]</param>
+            <param name="action">[INSERT/UPDATE/UPDATE OF/DELETE/]</param>
+            <param name="table">Name of target table.</param>
+            <param name="scope">[null/FOR EACH ROW]</param>
+            <param name="condition">Condition statement.</param>
+            <param name="code">Code of trigger.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.ISqliteDataBase.DeleteTrigger(System.String)">
+            <summary>
+            Delete the trigger from data base.
+            </summary>
+            <param name="name">The name of trigger.</param>
             <returns>Number of rows affected.</returns>
         </member>
         <member name="T:MGS.Sqlite.ISqliteHandler">
@@ -418,7 +468,7 @@
         </member>
         <member name="P:MGS.Sqlite.ISqliteView.Name">
             <summary>
-            Name of source.
+            Name of source table.
             </summary>
         </member>
         <member name="M:MGS.Sqlite.ISqliteView.Select(System.String)">
@@ -428,59 +478,134 @@
             <param name="command">Select command [Select all if null].</param>
             <returns></returns>
         </member>
-        <member name="T:MGS.Sqlite.SqliteConstant">
+        <member name="T:MGS.Sqlite.SqliteConst">
             <summary>
             Constant for sqlite.
             </summary>
         </member>
-        <member name="F:MGS.Sqlite.SqliteConstant.PRIMARY_KEY">
+        <member name="F:MGS.Sqlite.SqliteConst.TABLE">
+            <summary>
+            TABLE
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.VIEW">
+            <summary>
+            VIEW
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.TRIGGER">
+            <summary>
+            TRIGGER
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.PRIMARY_KEY">
             <summary>
             PRIMARY KEY
             </summary>
         </member>
-        <member name="F:MGS.Sqlite.SqliteConstant.UNIQUE">
+        <member name="F:MGS.Sqlite.SqliteConst.UNIQUE">
             <summary>
             UNIQUE
             </summary>
         </member>
-        <member name="F:MGS.Sqlite.SqliteConstant.NOT_NULL">
+        <member name="F:MGS.Sqlite.SqliteConst.NOT_NULL">
             <summary>
             NOT NULL
             </summary>
         </member>
-        <member name="F:MGS.Sqlite.SqliteConstant.DEFAULT">
+        <member name="F:MGS.Sqlite.SqliteConst.DEFAULT">
             <summary>
             DEFAULT
             </summary>
         </member>
-        <member name="F:MGS.Sqlite.SqliteConstant.SQLITE_MASTER">
+        <member name="F:MGS.Sqlite.SqliteConst.BEFORE">
             <summary>
-            sqlite_master.
+            BEFORE
             </summary>
         </member>
-        <member name="F:MGS.Sqlite.SqliteConstant.CONNECTION_FORMAT">
+        <member name="F:MGS.Sqlite.SqliteConst.AFTER">
             <summary>
-            Format of connection string.
+            AFTER
             </summary>
         </member>
-        <member name="F:MGS.Sqlite.SqliteConstant.CMD_CREATE_IF_FORMAT">
+        <member name="F:MGS.Sqlite.SqliteConst.INSERT">
             <summary>
-            Format of create if not exists command.
+            INSERT
             </summary>
         </member>
-        <member name="F:MGS.Sqlite.SqliteConstant.CMD_SELECT_FORMAT">
+        <member name="F:MGS.Sqlite.SqliteConst.UPDATE">
             <summary>
-            Format of select command.
+            UPDATE
             </summary>
         </member>
-        <member name="F:MGS.Sqlite.SqliteConstant.CMD_SELECT_MASTER_TYPE_NAME_FORMAT">
+        <member name="F:MGS.Sqlite.SqliteConst.UPDATE_OF">
             <summary>
-            Format of select sqlite_master by type and name command.
+            UPDATE OF
             </summary>
         </member>
-        <member name="F:MGS.Sqlite.SqliteConstant.CMD_DROP_FORMAT">
+        <member name="F:MGS.Sqlite.SqliteConst.DELETE">
             <summary>
-            Format of delete command.
+            DELETE
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.FOR_EACH_ROW">
+            <summary>
+            FOR EACH ROW
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.SQLITE_MASTER">
+            <summary>
+            Sqlite main table sqlite_master.
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.URI_FILE_FORMAT">
+            <summary>
+            Format of file uri string [file].
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.CONNECTION_FORMAT">
+            <summary>
+            Format of connection string [version, uri].
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.CMD_CREATE_IF_FORMAT">
+            <summary>
+            Format of create if not exists command [type, statement].
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.CMD_SELECT_FORMAT">
+            <summary>
+            Format of select command [columns, name].
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.CMD_SELECT_MASTER_TYPE_NAME_FORMAT">
+            <summary>
+            Format of select sqlite_master by type and name command [columns, type, name].
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.CMD_DROP_FORMAT">
+            <summary>
+            Format of delete command [type, name].
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.STMT_TRIGGER_FORMAT">
+            <summary>
+            Format of trigger statement [name, when, action, table, scope, where, code].
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.EXPR_GROUP_BY_FORMAT">
+            <summary>
+            Format of group by expression [column1, column2....columnN].
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.EXPR_ORDER_BY_FORMAT">
+            <summary>
+            Format of order by expression [column1, column2....columnN].
+            </summary>
+        </member>
+        <member name="F:MGS.Sqlite.SqliteConst.EXPR_JOIN_USING_FORMAT">
+            <summary>
+            Format of join using expression [table, column1, column2....columnN].
             </summary>
         </member>
         <member name="T:MGS.Sqlite.SqliteDataBase">
@@ -498,6 +623,13 @@
             Constructor of SqliteDataBase.
             </summary>
             <param name="file">Data base file.</param>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteDataBase.Select(System.String)">
+            <summary>
+            Select data rows from data base.
+            </summary>
+            <param name="command">Select command.</param>
+            <returns></returns>
         </member>
         <member name="M:MGS.Sqlite.SqliteDataBase.CreateView(System.String)">
             <summary>
@@ -539,6 +671,33 @@
             Delete the table from data base.
             </summary>
             <param name="name">The name of table.</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteDataBase.CreateTrigger(System.String)">
+            <summary>
+            Create sqlite trigger if not exists.
+            </summary>
+            <param name="statement">Statement sql for trigger.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteDataBase.CreateTrigger(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Create sqlite trigger if not exists.
+            </summary>
+            <param name="name">The name of trigger.</param>
+            <param name="when">[BEFORE/AFTER]</param>
+            <param name="action">[INSERT/UPDATE/UPDATE OF/DELETE/]</param>
+            <param name="table">Name of target table.</param>
+            <param name="scope">[null/FOR EACH ROW]</param>
+            <param name="where">Condition statement.</param>
+            <param name="code">Code of trigger (Without the ending symbol ';').</param>
+            <returns>Number of rows affected.</returns>
+        </member>
+        <member name="M:MGS.Sqlite.SqliteDataBase.DeleteTrigger(System.String)">
+            <summary>
+            Delete the trigger from data base.
+            </summary>
+            <param name="name">The name of trigger.</param>
             <returns>Number of rows affected.</returns>
         </member>
         <member name="T:MGS.Sqlite.ColumnFieldAttribute">
@@ -649,7 +808,7 @@
         </member>
         <member name="P:MGS.Sqlite.SqliteView.Name">
             <summary>
-            Name of source.
+            Name of source table.
             </summary>
         </member>
         <member name="F:MGS.Sqlite.SqliteView.handler">
