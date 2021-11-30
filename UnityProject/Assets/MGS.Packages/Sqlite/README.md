@@ -21,38 +21,6 @@
 - Select rows from view as DataTable and parse to custom data structure.
 - Select, Insert, Update, Delete table rows, use custom data structure.
 
-## Implemented
-
-- Sqlite.
-
-  ```C#
-  public sealed class SqliteConstant{}
-  
-  public class SqliteDataBase : ISqliteDataBase{}
-  
-  public class SqliteHandler : ISqliteHandler{}
-  
-  public class SqliteTable : SqliteView, ISqliteTable{}
-  
-  public class SqliteView : ISqliteView{}
-  ```
-- Generic.
-
-  ```C#
-  [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
-  public class ColumnFieldAttribute : Attribute{}
-  
-  public class GenericDataBase : SqliteDataBase, IGenericDataBase{}
-  
-  public class GenericTable<T> : GenericView<T>, IGenericTable<T> where T : ITableRow, new(){}
-  
-  public class GenericView<T> : IGenericView<T> where T : IViewRow, new(){}
-  
-  public abstract class TableRow : ViewRow, ITableRow{}
-  
-  public abstract class ViewRow : IViewRow{}
-  ```
-
 ## Usage
 
 ### Native
