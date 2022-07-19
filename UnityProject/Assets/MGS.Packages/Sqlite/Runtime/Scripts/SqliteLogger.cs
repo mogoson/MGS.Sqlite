@@ -18,7 +18,7 @@ namespace MGS.Sqlite
     /// <summary>
     /// Logger for sqlite.
     /// </summary>
-    public sealed class SqliteLogger
+    internal sealed class SqliteLogger
     {
         /// <summary>
         /// 
