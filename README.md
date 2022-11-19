@@ -229,10 +229,6 @@
 
 - Demos in the path "MGS.Packages/Sqlite/Demo/" provide reference to you.
 
-## Preview
-
-![Sqlite Operate](./Attachment/images/SqliteOperate.PNG)
-
 ------
 
 Copyright © 2021 Mogoson.	mogoson@outlook.com
