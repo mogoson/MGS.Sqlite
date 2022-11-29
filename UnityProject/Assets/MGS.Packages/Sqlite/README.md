@@ -15,6 +15,10 @@
 
 - Windows
 
+## Version
+
+- 1.2.1
+
 ## Demand
 
 - Create data base file, view table runtime.
