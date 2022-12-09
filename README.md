@@ -1,6 +1,6 @@
 [TOC]
 
-﻿# MGS.Sqlite
+# MGS.Sqlite
 
 ## Summary
 
