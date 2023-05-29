@@ -1,0 +1,7 @@
+{
+    "description": "Generic sqlite data view and table for custom data class.",
+    "displayName": "Sqlite",
+    "name": "com.mgs.sqlite",
+    "unity": "2019.4",
+    "version": "1.0.0"
+}
