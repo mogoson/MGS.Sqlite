@@ -67,3 +67,5 @@ crashlytics-build.properties
 /UnityProject/obj
 /Assets/Sqlite Demo
 /Assets/Plugins
+/UserSettings
+/*.vsconfig
