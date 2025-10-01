@@ -32,7 +32,7 @@ namespace MGS.Sqlite
         protected DataTable dataTable;
 
         /// <summary>
-        /// Constructor of GenericTable.
+        /// Constructor.
         /// </summary>
         /// <param name="table">Instance of sqlite table.</param>
         public GenericTable(ISqliteTable table) : base(table)
@@ -62,7 +62,7 @@ namespace MGS.Sqlite
         }
 
         /// <summary>
-        /// Insert row to table.
+        /// Insert row to data table.
         /// </summary>
         /// <param name="row"></param>
         /// <returns>Number of rows affected.</returns>
@@ -74,7 +74,7 @@ namespace MGS.Sqlite
         }
 
         /// <summary>
-        /// Update row to table.
+        /// Update row to data table.
         /// </summary>
         /// <param name="row"></param>
         /// <returns>Number of rows affected.</returns>
@@ -93,7 +93,7 @@ namespace MGS.Sqlite
         }
 
         /// <summary>
-        /// Delete row from table.
+        /// Delete row from data table.
         /// </summary>
         /// <param name="row"></param>
         /// <returns>Number of rows affected.</returns>
@@ -103,7 +103,7 @@ namespace MGS.Sqlite
         }
 
         /// <summary>
-        /// Delete row from table.
+        /// Delete row from data table.
         /// </summary>
         /// <param name="key">Value of the primary key.</param>
         /// <returns>Number of rows affected.</returns>
@@ -124,12 +124,7 @@ namespace MGS.Sqlite
         /// <returns>Number of rows affected.</returns>
         public int Commit()
         {
-            var lines = source.Update(dataTable);
-            if (lines > 0)
-            {
-                dataTable.AcceptChanges();
-            }
-            return lines;
+            return source.Update(dataTable);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿/*************************************************************************
  *  Copyright © 2021 Mogoson. All rights reserved.
  *------------------------------------------------------------------------
- *  File         :  ISqliteHandler.cs
- *  Description  :  Interface for sqlite handler.
+ *  File         :  ISqliteConnect.cs
+ *  Description  :  Interface for sqlite connect.
  *------------------------------------------------------------------------
  *  Author       :  Mogoson
  *  Version      :  1.0
@@ -10,15 +10,15 @@
  *  Description  :  Initial development version.
  *************************************************************************/
 
-using Mono.Data.Sqlite;
 using System.Data;
+using Mono.Data.Sqlite;
 
 namespace MGS.Sqlite
 {
     /// <summary>
-    /// Interface for sqlite handler.
+    /// Interface for sqlite connect.
     /// </summary>
-    public interface ISqliteHandler
+    public interface ISqliteConnect
     {
         /// <summary>
         /// Execute command with args.

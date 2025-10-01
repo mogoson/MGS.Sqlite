@@ -37,7 +37,7 @@ namespace MGS.Sqlite
         }
 
         /// <summary>
-        /// Fill this object from data row.
+        /// Fill this view from data row.
         /// </summary>
         /// <param name="row"></param>
         public void FillFrom(DataRow row)
@@ -76,8 +76,8 @@ namespace MGS.Sqlite
 
                 if (columnFields.Count == 0)
                 {
-                    var message = string.Format("Can not find any column field in class {0}", this);
-                    message += string.Format(", you can use {0} to mark e field as column field.", typeof(ColumnFieldAttribute));
+                    var message = $"Can not find any column field in class {this}";
+                    message += $", you can use {nameof(ColumnFieldAttribute)} to mark e field as column field.";
                     throw new NullReferenceException(message);
                 }
             }

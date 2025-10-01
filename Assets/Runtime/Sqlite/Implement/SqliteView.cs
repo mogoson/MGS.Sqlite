@@ -25,23 +25,23 @@ namespace MGS.Sqlite
         public string Name { protected set; get; }
 
         /// <summary>
-        /// Instance of sqlite handler.
+        /// Instance of sqlite connect.
         /// </summary>
-        protected ISqliteHandler handler;
+        protected ISqliteConnect connect;
 
         /// <summary>
-        /// Constructor of SqliteView.
+        /// Constructor.
         /// </summary>
         /// <param name="name">Name of view.</param>
-        /// <param name="handler">Instance of sqlite handler.</param>
-        public SqliteView(string name, ISqliteHandler handler)
+        /// <param name="connect">Instance of sqlite connect.</param>
+        public SqliteView(string name, ISqliteConnect connect)
         {
             Name = name;
-            this.handler = handler;
+            this.connect = connect;
         }
 
         /// <summary>
-        /// Select rows from source.
+        /// Select rows from source table.
         /// </summary>
         /// <param name="command">Select command [Select all if null].</param>
         /// <returns></returns>
@@ -51,7 +51,7 @@ namespace MGS.Sqlite
             {
                 command = string.Format(SqliteConst.CMD_SELECT_FORMAT, "*", Name);
             }
-            return handler.ExecuteQuery(command);
+            return connect.ExecuteQuery(command);
         }
     }
 }

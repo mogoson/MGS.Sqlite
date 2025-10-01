@@ -20,7 +20,7 @@ namespace MGS.Sqlite
     public interface IGenericView<T> where T : IViewRow, new()
     {
         /// <summary>
-        /// Select rows from source.
+        /// Select rows from source table.
         /// </summary>
         /// <param name="command">Select command [Select all if null].</param>
         /// <returns>Selected rows.</returns>

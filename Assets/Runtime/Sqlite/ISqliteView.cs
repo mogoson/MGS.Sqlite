@@ -25,7 +25,7 @@ namespace MGS.Sqlite
         string Name { get; }
 
         /// <summary>
-        /// Select rows from source.
+        /// Select rows from source table.
         /// </summary>
         /// <param name="command">Select command [Select all if null].</param>
         /// <returns></returns>

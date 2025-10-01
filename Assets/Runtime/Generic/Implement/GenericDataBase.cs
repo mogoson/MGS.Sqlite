@@ -20,10 +20,16 @@ namespace MGS.Sqlite
     public class GenericDataBase : SqliteDataBase, IGenericDataBase
     {
         /// <summary>
-        /// Constructor of GenericDataBase.
+        /// Constructor.
         /// </summary>
         /// <param name="file">Data base file.</param>
         public GenericDataBase(string file) : base(file) { }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="connect">Sqlite connect of data base.</param>
+        public GenericDataBase(ISqliteConnect connect) : base(connect) { }
 
         /// <summary>
         /// Select data rows as view rows from data base.
@@ -33,7 +39,7 @@ namespace MGS.Sqlite
         /// <returns></returns>
         public ICollection<T> Select<T>(string command) where T : IViewRow, new()
         {
-            return new GenericView<T>(new SqliteView(null, Handler)).Select(command);
+            return new GenericView<T>(new SqliteView(null, connect)).Select(command);
         }
 
         /// <summary>
@@ -61,7 +67,7 @@ namespace MGS.Sqlite
         /// <returns>Number of rows affected.</returns>
         public int CreateTable<T>(string name) where T : ITableRow, new()
         {
-            var statement = string.Format("{0}{1}", name, new T().Statement);
+            var statement = $"{name}{new T().Statement}";
             return CreateTable(statement);
         }
 

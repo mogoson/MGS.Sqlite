@@ -26,7 +26,7 @@ namespace MGS.Sqlite
         /// <param name="ex"></param>
         public static void LogException(Exception ex)
         {
-            Debug.LogErrorFormat("Exception: {0}\r\n{1}", ex.Message, ex.StackTrace);
+            Debug.LogException(ex);
         }
     }
 }

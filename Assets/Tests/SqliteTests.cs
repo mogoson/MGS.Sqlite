@@ -1,13 +1,23 @@
-﻿using MGS.Sqlite;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
+using MGS.Sqlite;
+using NUnit.Framework;
 
 namespace Tests
 {
     public class SqliteTests
     {
+        class Person : TableRow
+        {
+            //Must mark a PrimaryKey.
+            [ColumnField(PrimaryKey = true)]
+            public int id;
+
+            [ColumnField]
+            public string name;
+        }
+
         string dbFile;
         GenericDataBase dataBase;
         IGenericTable<Person> table;
@@ -15,7 +25,7 @@ namespace Tests
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            dbFile = string.Format("{0}/DataBase/TestDB.db", Environment.CurrentDirectory);
+            dbFile = $"{Environment.CurrentDirectory}/DataBase/TestDB.db";
             dataBase = new GenericDataBase(dbFile);
         }
 
@@ -104,15 +114,5 @@ namespace Tests
             var newCount = persons == null ? 0 : persons.Count;
             Assert.AreEqual(newCount, count - 1);
         }
-    }
-
-    public class Person : TableRow
-    {
-        //Must mark a PrimaryKey.
-        [ColumnField(PrimaryKey = true)]
-        public int id;
-
-        [ColumnField]
-        public string name;
     }
 }

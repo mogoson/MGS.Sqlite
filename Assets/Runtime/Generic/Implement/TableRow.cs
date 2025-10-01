@@ -52,7 +52,7 @@ namespace MGS.Sqlite
         #endregion
 
         /// <summary>
-        /// Fill this object to data row.
+        /// Fill this table to data row.
         /// </summary>
         /// <param name="row"></param>
         public virtual void FillTo(DataRow row)
@@ -82,33 +82,33 @@ namespace MGS.Sqlite
             var columns = new List<string>();
             foreach (var field in columnFields)
             {
-                var column = string.Format("{0} {1}", field.Name, field.FieldType.Name.ToUpper());
-                var atrbt = field.GetCustomAttributes(typeof(ColumnFieldAttribute), false)[0] as ColumnFieldAttribute;
+                var column = $"{field.Name} {field.FieldType.Name.ToUpper()}";
+                var atrbt = field.GetCustomAttribute<ColumnFieldAttribute>(false);
                 if (atrbt.PrimaryKey)
                 {
                     primaryField = field;
-                    column += string.Format(" {0}", SqliteConst.PRIMARY_KEY);
+                    column += $" {SqliteConst.PRIMARY_KEY}";
                 }
                 if (atrbt.Unique)
                 {
-                    column += string.Format(" {0}", SqliteConst.UNIQUE);
+                    column += $" {SqliteConst.UNIQUE}";
                 }
                 if (atrbt.NotNull)
                 {
-                    column += string.Format(" {0}", SqliteConst.NOT_NULL);
+                    column += $" {SqliteConst.NOT_NULL}";
                 }
                 if (atrbt.Default != null)
                 {
-                    column += string.Format(" {0} {1}", SqliteConst.DEFAULT, atrbt.Default);
+                    column += $" {SqliteConst.DEFAULT} {atrbt.Default}";
                 }
                 columns.Add(column);
             }
-            Statement = string.Format("({0})", string.Join(",", columns.ToArray()));
+            Statement = $"({string.Join(", ", columns.ToArray())})";
 
             if (primaryField == null)
             {
-                var message = string.Format("Can not find the primary field in class {0}", this);
-                message += string.Format(", you can use {0} with 'PrimaryKey=true' to mark e field as primary field.", typeof(ColumnFieldAttribute));
+                var message = $"Can not find the primary field in class {this}";
+                message += $", you can use {nameof(ColumnFieldAttribute)} with 'PrimaryKey=true' to mark e field as primary field.";
                 throw new NullReferenceException(message);
             }
         }

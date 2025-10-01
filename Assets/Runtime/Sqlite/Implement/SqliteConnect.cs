@@ -1,8 +1,8 @@
 ﻿/*************************************************************************
  *  Copyright © 2021 Mogoson. All rights reserved.
  *------------------------------------------------------------------------
- *  File         :  SqliteHandler.cs
- *  Description  :  Handler for sqlite data base.
+ *  File         :  SqliteConnect.cs
+ *  Description  :  Connect to sqlite data base.
  *------------------------------------------------------------------------
  *  Author       :  Mogoson
  *  Version      :  1.0
@@ -10,29 +10,27 @@
  *  Description  :  Initial development version.
  *************************************************************************/
 
-using Mono.Data.Sqlite;
 using System;
 using System.Data;
-using System.IO;
+using Mono.Data.Sqlite;
 
 namespace MGS.Sqlite
 {
     /// <summary>
-    /// Handler for sqlite data base.
+    /// Connect to sqlite data base.
     /// </summary>
-    public class SqliteHandler : ISqliteHandler
+    public class SqliteConnect : ISqliteConnect
     {
         /// <summary>
         /// Connection string.
         /// </summary>
         protected string connectionString;
 
-        #region
         /// <summary>
-        /// Constructor of SqliteHandler.
+        /// Constructor.
         /// </summary>
         /// <param name="uri">Uri of data source.</param>
-        public SqliteHandler(string uri)
+        public SqliteConnect(string uri)
         {
             connectionString = string.Format(SqliteConst.CONNECTION_FORMAT, 3, uri);
         }
@@ -168,30 +166,5 @@ namespace MGS.Sqlite
                 return 0;
             }
         }
-        #endregion
-
-        #region
-        /// <summary>
-        /// Create data base file.
-        /// </summary>
-        /// <param name="file">Path of data base file.</param>
-        public static void CreateFile(string file)
-        {
-            try
-            {
-                //Check create directory.
-                var dir = Path.GetDirectoryName(file);
-                if (!Directory.Exists(dir))
-                {
-                    Directory.CreateDirectory(dir);
-                }
-                SqliteConnection.CreateFile(file);
-            }
-            catch (Exception ex)
-            {
-                SqliteLogger.LogException(ex);
-            }
-        }
-        #endregion
     }
 }

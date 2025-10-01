@@ -19,28 +19,28 @@ namespace MGS.Sqlite
     public interface IGenericTable<T> : IGenericView<T> where T : ITableRow, new()
     {
         /// <summary>
-        /// Insert row to table.
+        /// Insert row to data table.
         /// </summary>
         /// <param name="row"></param>
         /// <returns>Number of rows affected.</returns>
         void Insert(T row);
 
         /// <summary>
-        /// Update row to table.
+        /// Update row to data table.
         /// </summary>
         /// <param name="row"></param>
         /// <returns>Number of rows affected.</returns>
         void Update(T row);
 
         /// <summary>
-        /// Delete row from table.
+        /// Delete row from data table.
         /// </summary>
         /// <param name="row"></param>
         /// <returns>Number of rows affected.</returns>
         void Delete(T row);
 
         /// <summary>
-        /// Delete row from table.
+        /// Delete row from data table.
         /// </summary>
         /// <param name="key">Value of the primary key.</param>
         /// <returns>Number of rows affected.</returns>

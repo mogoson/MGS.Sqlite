@@ -20,7 +20,7 @@ namespace MGS.Sqlite
     public interface ISqliteTable : ISqliteView
     {
         /// <summary>
-        /// Update rows modifications to table.
+        /// Update rows modifications to source table.
         /// </summary>
         /// <param name="table"></param>
         /// <returns>Number of rows affected.</returns>

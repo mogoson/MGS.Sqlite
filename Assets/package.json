@@ -1,7 +1,24 @@
 {
-    "description": "Generic sqlite data view and table for custom data class.",
-    "displayName": "Sqlite",
     "name": "com.mgs.sqlite",
-    "unity": "2019.4",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "displayName": "Sqlite",
+    "description": "Generic sqlite data view and table for custom data class.",
+    "unity": "2021.3",
+    "keywords": [
+        "sqlite",
+        "table",
+        "view"
+    ],
+    "author": {
+        "name": "Mogoson",
+        "email": "mogoson@outlook.com",
+        "url": "https://github.com/mogoson"
+    },
+    "samples": [
+        {
+            "displayName": "Sample",
+            "description": "Sample generic sqlite data view and table for custom data class.",
+            "path": "Samples~/Sample"
+        }
+    ]
 }

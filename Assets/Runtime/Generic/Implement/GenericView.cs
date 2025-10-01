@@ -22,12 +22,12 @@ namespace MGS.Sqlite
     public class GenericView<T> : IGenericView<T> where T : IViewRow, new()
     {
         /// <summary>
-        /// Instance of sqlite source.
+        /// Instance of sqlite view.
         /// </summary>
         protected ISqliteView source;
 
         /// <summary>
-        /// Constructor of GenericView.
+        /// Constructor.
         /// </summary>
         /// <param name="view">Instance of sqlite view.</param>
         public GenericView(ISqliteView view)
@@ -36,7 +36,7 @@ namespace MGS.Sqlite
         }
 
         /// <summary>
-        /// Select rows from source.
+        /// Select rows from source table.
         /// </summary>
         /// <param name="command">Select command [Select all if null].</param>
         /// <returns>Selected rows.</returns>

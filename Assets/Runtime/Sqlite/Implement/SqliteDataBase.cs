@@ -10,8 +10,10 @@
  *  Description  :  Initial development version.
  *************************************************************************/
 
+using System;
 using System.Data;
 using System.IO;
+using Mono.Data.Sqlite;
 
 namespace MGS.Sqlite
 {
@@ -20,27 +22,62 @@ namespace MGS.Sqlite
     /// </summary>
     public class SqliteDataBase : ISqliteDataBase
     {
+        #region Constructor
         /// <summary>
-        /// Sqlite handler of this data base.
+        /// Sqlite connect of data base.
         /// </summary>
-        public ISqliteHandler Handler { protected set; get; }
+        protected ISqliteConnect connect;
 
         /// <summary>
-        /// Constructor of SqliteDataBase.
+        /// Constructor.
         /// </summary>
         /// <param name="file">Data base file.</param>
         public SqliteDataBase(string file)
         {
             if (!File.Exists(file))
             {
-                SqliteHandler.CreateFile(file);
+                CreateFile(file);
             }
 
             var uri = string.Format(SqliteConst.URI_FILE_FORMAT, file);
-            Handler = new SqliteHandler(uri);
+            connect = new SqliteConnect(uri);
         }
 
-        #region
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="connect">Sqlite connect of data base.</param>
+        public SqliteDataBase(ISqliteConnect connect)
+        {
+            this.connect = connect;
+        }
+        #endregion
+
+        #region File
+        /// <summary>
+        /// Create data base file.
+        /// </summary>
+        /// <param name="file">Path of data base file.</param>
+        public static void CreateFile(string file)
+        {
+            try
+            {
+                //Check create directory.
+                var dir = Path.GetDirectoryName(file);
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+                SqliteConnection.CreateFile(file);
+            }
+            catch (Exception ex)
+            {
+                SqliteLogger.LogException(ex);
+            }
+        }
+        #endregion
+
+        #region Data
         /// <summary>
         /// Select data rows from data base.
         /// </summary>
@@ -48,11 +85,11 @@ namespace MGS.Sqlite
         /// <returns></returns>
         public DataTable Select(string command)
         {
-            return Handler.ExecuteQuery(command);
+            return connect.ExecuteQuery(command);
         }
         #endregion
 
-        #region
+        #region View
         /// <summary>
         /// Create sqlite view if not exists.
         /// </summary>
@@ -61,7 +98,7 @@ namespace MGS.Sqlite
         public int CreateView(string statement)
         {
             var createCmd = string.Format(SqliteConst.CMD_CREATE_IF_FORMAT, SqliteConst.VIEW, statement);
-            return Handler.ExecuteNonQuery(createCmd);
+            return connect.ExecuteNonQuery(createCmd);
         }
 
         /// <summary>
@@ -72,12 +109,12 @@ namespace MGS.Sqlite
         public ISqliteView SelectView(string name)
         {
             var selectCmd = string.Format(SqliteConst.CMD_SELECT_MASTER_TYPE_NAME_FORMAT, "name", "view", name);
-            var result = Handler.ExecuteScalar(selectCmd);
+            var result = connect.ExecuteScalar(selectCmd);
             if (result == null)
             {
                 return null;
             }
-            return new SqliteView(name, Handler);
+            return new SqliteView(name, connect);
         }
 
         /// <summary>
@@ -88,11 +125,11 @@ namespace MGS.Sqlite
         public int DeleteView(string name)
         {
             var deleteCmd = string.Format(SqliteConst.CMD_DROP_FORMAT, SqliteConst.VIEW, name);
-            return Handler.ExecuteNonQuery(deleteCmd);
+            return connect.ExecuteNonQuery(deleteCmd);
         }
         #endregion
 
-        #region
+        #region Table
         /// <summary>
         /// Create sqlite table if not exists.
         /// </summary>
@@ -101,7 +138,7 @@ namespace MGS.Sqlite
         public int CreateTable(string statement)
         {
             var createCmd = string.Format(SqliteConst.CMD_CREATE_IF_FORMAT, SqliteConst.TABLE, statement);
-            return Handler.ExecuteNonQuery(createCmd);
+            return connect.ExecuteNonQuery(createCmd);
         }
 
         /// <summary>
@@ -112,12 +149,12 @@ namespace MGS.Sqlite
         public ISqliteTable SelectTable(string name)
         {
             var selectCmd = string.Format(SqliteConst.CMD_SELECT_MASTER_TYPE_NAME_FORMAT, "name", "table", name);
-            var result = Handler.ExecuteScalar(selectCmd);
+            var result = connect.ExecuteScalar(selectCmd);
             if (result == null)
             {
                 return null;
             }
-            return new SqliteTable(name, Handler);
+            return new SqliteTable(name, connect);
         }
 
         /// <summary>
@@ -128,11 +165,11 @@ namespace MGS.Sqlite
         public int DeleteTable(string name)
         {
             var deleteCmd = string.Format(SqliteConst.CMD_DROP_FORMAT, SqliteConst.TABLE, name);
-            return Handler.ExecuteNonQuery(deleteCmd);
+            return connect.ExecuteNonQuery(deleteCmd);
         }
         #endregion
 
-        #region
+        #region Trigger
         /// <summary>
         /// Create sqlite trigger if not exists.
         /// </summary>
@@ -141,7 +178,7 @@ namespace MGS.Sqlite
         public int CreateTrigger(string statement)
         {
             var createCmd = string.Format(SqliteConst.CMD_CREATE_IF_FORMAT, SqliteConst.TRIGGER, statement);
-            return Handler.ExecuteNonQuery(createCmd);
+            return connect.ExecuteNonQuery(createCmd);
         }
 
         /// <summary>
@@ -160,7 +197,7 @@ namespace MGS.Sqlite
         {
             var statement = string.Format(SqliteConst.STMT_TRIGGER_FORMAT, name, when, action, table, scope, where, code);
             var createCmd = string.Format(SqliteConst.CMD_CREATE_IF_FORMAT, SqliteConst.TRIGGER, statement);
-            return Handler.ExecuteNonQuery(createCmd);
+            return connect.ExecuteNonQuery(createCmd);
         }
 
         /// <summary>
@@ -171,7 +208,7 @@ namespace MGS.Sqlite
         public int DeleteTrigger(string name)
         {
             var deleteCmd = string.Format(SqliteConst.CMD_DROP_FORMAT, SqliteConst.TRIGGER, name);
-            return Handler.ExecuteNonQuery(deleteCmd);
+            return connect.ExecuteNonQuery(deleteCmd);
         }
         #endregion
     }

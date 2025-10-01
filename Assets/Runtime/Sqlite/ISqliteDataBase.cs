@@ -19,12 +19,7 @@ namespace MGS.Sqlite
     /// </summary>
     public interface ISqliteDataBase
     {
-        /// <summary>
-        /// Sqlite handler of this data base.
-        /// </summary>
-        ISqliteHandler Handler { get; }
-
-        #region
+        #region Data
         /// <summary>
         /// Select data rows from data base.
         /// </summary>
@@ -33,7 +28,7 @@ namespace MGS.Sqlite
         DataTable Select(string command);
         #endregion
 
-        #region
+        #region View
         /// <summary>
         /// Create sqlite view if not exists.
         /// </summary>
@@ -56,7 +51,7 @@ namespace MGS.Sqlite
         int DeleteView(string name);
         #endregion
 
-        #region
+        #region Table
         /// <summary>
         /// Create sqlite table if not exists.
         /// </summary>
@@ -79,7 +74,7 @@ namespace MGS.Sqlite
         int DeleteTable(string name);
         #endregion
 
-        #region
+        #region Trigger
         /// <summary>
         /// Create sqlite trigger if not exists.
         /// </summary>

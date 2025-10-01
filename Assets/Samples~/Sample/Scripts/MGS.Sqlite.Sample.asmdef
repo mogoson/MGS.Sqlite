@@ -1,0 +1,16 @@
+{
+    "name": "MGS.Sqlite.Sample",
+    "rootNamespace": "",
+    "references": [
+        "MGS.Sqlite"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

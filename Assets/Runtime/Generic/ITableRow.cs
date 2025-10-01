@@ -35,7 +35,7 @@ namespace MGS.Sqlite
         object PrimaryValue { get; }
 
         /// <summary>
-        /// Fill this object to data row.
+        /// Fill this table to data row.
         /// </summary>
         /// <param name="row"></param>
         void FillTo(DataRow row);

@@ -20,7 +20,7 @@ namespace MGS.Sqlite
     public interface IViewRow
     {
         /// <summary>
-        /// Fill this object from data row.
+        /// Fill this view from data row.
         /// </summary>
         /// <param name="row"></param>
         void FillFrom(DataRow row);
