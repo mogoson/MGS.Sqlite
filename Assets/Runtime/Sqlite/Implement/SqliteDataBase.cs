@@ -14,6 +14,7 @@ using System;
 using System.Data;
 using System.IO;
 using Mono.Data.Sqlite;
+using UnityEngine;
 
 namespace MGS.Sqlite
 {
@@ -34,11 +35,6 @@ namespace MGS.Sqlite
         /// <param name="file">Data base file.</param>
         public SqliteDataBase(string file)
         {
-            if (!File.Exists(file))
-            {
-                CreateFile(file);
-            }
-
             var uri = string.Format(SqliteConst.URI_FILE_FORMAT, file);
             connect = new SqliteConnect(uri);
         }
@@ -58,21 +54,23 @@ namespace MGS.Sqlite
         /// Create data base file.
         /// </summary>
         /// <param name="file">Path of data base file.</param>
-        public static void CreateFile(string file)
+        /// <returns></returns>
+        public static bool CreateFile(string file)
         {
             try
             {
-                //Check create directory.
                 var dir = Path.GetDirectoryName(file);
                 if (!Directory.Exists(dir))
                 {
                     Directory.CreateDirectory(dir);
                 }
                 SqliteConnection.CreateFile(file);
+                return true;
             }
             catch (Exception ex)
             {
-                SqliteLogger.LogException(ex);
+                Debug.LogException(ex);
+                return false;
             }
         }
         #endregion
@@ -81,11 +79,11 @@ namespace MGS.Sqlite
         /// <summary>
         /// Select data rows from data base.
         /// </summary>
-        /// <param name="command">Select command.</param>
+        /// <param name="commandText">Select command text.</param>
         /// <returns></returns>
-        public DataTable Select(string command)
+        public DataTable Select(string commandText)
         {
-            return connect.ExecuteQuery(command);
+            return connect.ExecuteQuery(commandText);
         }
         #endregion
 
@@ -93,11 +91,11 @@ namespace MGS.Sqlite
         /// <summary>
         /// Create sqlite view if not exists.
         /// </summary>
-        /// <param name="statement">Statement sql for view.</param>
+        /// <param name="schema">Schema of view.</param>
         /// <returns>Number of rows affected.</returns>
-        public int CreateView(string statement)
+        public int CreateView(string schema)
         {
-            var createCmd = string.Format(SqliteConst.CMD_CREATE_IF_FORMAT, SqliteConst.VIEW, statement);
+            var createCmd = string.Format(SqliteConst.CMD_CREATE_IF_FORMAT, SqliteConst.VIEW, schema);
             return connect.ExecuteNonQuery(createCmd);
         }
 
@@ -133,11 +131,11 @@ namespace MGS.Sqlite
         /// <summary>
         /// Create sqlite table if not exists.
         /// </summary>
-        /// <param name="statement">Statement sql for table.</param>
+        /// <param name="schema">Schema of table.</param>
         /// <returns>Number of rows affected.</returns>
-        public int CreateTable(string statement)
+        public int CreateTable(string schema)
         {
-            var createCmd = string.Format(SqliteConst.CMD_CREATE_IF_FORMAT, SqliteConst.TABLE, statement);
+            var createCmd = string.Format(SqliteConst.CMD_CREATE_IF_FORMAT, SqliteConst.TABLE, schema);
             return connect.ExecuteNonQuery(createCmd);
         }
 
@@ -173,11 +171,11 @@ namespace MGS.Sqlite
         /// <summary>
         /// Create sqlite trigger if not exists.
         /// </summary>
-        /// <param name="statement">Statement sql for trigger.</param>
+        /// <param name="schema">Schema of trigger.</param>
         /// <returns></returns>
-        public int CreateTrigger(string statement)
+        public int CreateTrigger(string schema)
         {
-            var createCmd = string.Format(SqliteConst.CMD_CREATE_IF_FORMAT, SqliteConst.TRIGGER, statement);
+            var createCmd = string.Format(SqliteConst.CMD_CREATE_IF_FORMAT, SqliteConst.TRIGGER, schema);
             return connect.ExecuteNonQuery(createCmd);
         }
 
@@ -195,8 +193,8 @@ namespace MGS.Sqlite
         public int CreateTrigger(string name, string when, string action,
             string table, string scope, string where, string code)
         {
-            var statement = string.Format(SqliteConst.STMT_TRIGGER_FORMAT, name, when, action, table, scope, where, code);
-            var createCmd = string.Format(SqliteConst.CMD_CREATE_IF_FORMAT, SqliteConst.TRIGGER, statement);
+            var schema = string.Format(SqliteConst.SCHM_TRIGGER_FORMAT, name, when, action, table, scope, where, code);
+            var createCmd = string.Format(SqliteConst.CMD_CREATE_IF_FORMAT, SqliteConst.TRIGGER, schema);
             return connect.ExecuteNonQuery(createCmd);
         }
 

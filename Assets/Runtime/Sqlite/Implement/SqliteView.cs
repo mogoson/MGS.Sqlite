@@ -43,15 +43,15 @@ namespace MGS.Sqlite
         /// <summary>
         /// Select rows from source table.
         /// </summary>
-        /// <param name="command">Select command [Select all if null].</param>
+        /// <param name="commandText">Select command text (Select all if null).</param>
         /// <returns></returns>
-        public DataTable Select(string command = null)
+        public DataTable Select(string commandText = null)
         {
-            if (string.IsNullOrEmpty(command))
+            if (string.IsNullOrEmpty(commandText))
             {
-                command = string.Format(SqliteConst.CMD_SELECT_FORMAT, "*", Name);
+                commandText = string.Format(SqliteConst.CMD_SELECT_FORMAT, "*", Name);
             }
-            return connect.ExecuteQuery(command);
+            return connect.ExecuteQuery(commandText);
         }
     }
 }

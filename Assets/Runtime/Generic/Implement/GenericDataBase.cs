@@ -32,23 +32,23 @@ namespace MGS.Sqlite
         public GenericDataBase(ISqliteConnect connect) : base(connect) { }
 
         /// <summary>
-        /// Select data rows as view rows from data base.
+        /// Select data rows from data base.
         /// </summary>
-        /// <typeparam name="T">Type of view row.</typeparam>
-        /// <param name="command">Select command.</param>
+        /// <typeparam name="T">Type of row.</typeparam>
+        /// <param name="commandText">Select command text.</param>
         /// <returns></returns>
-        public ICollection<T> Select<T>(string command) where T : IViewRow, new()
+        public ICollection<T> Select<T>(string commandText)
         {
-            return new GenericView<T>(new SqliteView(null, connect)).Select(command);
+            return new GenericView<T>(new SqliteView(null, connect)).Select(commandText);
         }
 
         /// <summary>
-        /// Select sqlite view from data base as IGenericView.
+        /// Select sqlite view from data base.
         /// </summary>
-        /// <typeparam name="T">Type of view row.</typeparam>
+        /// <typeparam name="T">Type of row.</typeparam>
         /// <param name="name">Name of view.</param>
         /// <returns></returns>
-        public IGenericView<T> SelectView<T>(string name) where T : IViewRow, new()
+        public IGenericView<T> SelectView<T>(string name)
         {
             var view = SelectView(name);
             if (view == null)
@@ -65,19 +65,19 @@ namespace MGS.Sqlite
         /// <typeparam name="T">Type of table row.</typeparam>
         /// <param name="name">Name of table.</param>
         /// <returns>Number of rows affected.</returns>
-        public int CreateTable<T>(string name) where T : ITableRow, new()
+        public int CreateTable<T>(string name)
         {
-            var statement = $"{name}{new T().Statement}";
-            return CreateTable(statement);
+            var schema = SqliteSchemaBuilder.BuildTableSchema<T>(name);
+            return CreateTable(schema);
         }
 
         /// <summary>
-        /// Select sqlite table from data base as IGenericTable.
+        /// Select sqlite table from data base.
         /// </summary>
-        /// <typeparam name="T">Type of table row.</typeparam>
+        /// <typeparam name="T">Type of row.</typeparam>
         /// <param name="name">Name of table.</param>
         /// <returns></returns>
-        public IGenericTable<T> SelectTable<T>(string name) where T : ITableRow, new()
+        public IGenericTable<T> SelectTable<T>(string name)
         {
             var table = SelectTable(name);
             if (table == null)

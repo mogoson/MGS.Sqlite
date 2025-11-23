@@ -13,6 +13,7 @@
 using System;
 using System.Data;
 using Mono.Data.Sqlite;
+using UnityEngine;
 
 namespace MGS.Sqlite
 {
@@ -36,12 +37,12 @@ namespace MGS.Sqlite
         }
 
         /// <summary>
-        /// Execute command with args.
+        /// Execute command with parameters.
         /// </summary>
-        /// <param name="command"></param>
-        /// <param name="args"></param>
+        /// <param name="commandText"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public virtual DataTable ExecuteQuery(string command, params SqliteParameter[] args)
+        public virtual DataTable ExecuteQuery(string commandText, params SqliteParameter[] parameters)
         {
             try
             {
@@ -50,12 +51,13 @@ namespace MGS.Sqlite
                     conn.Open();
                     using (var cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = command;
-                        cmd.Parameters.AddRange(args);
+                        cmd.CommandText = commandText;
+                        cmd.Parameters.AddRange(parameters);
 
                         using (var adapter = new SqliteDataAdapter(cmd))
                         {
                             var table = new DataTable();
+                            adapter.FillSchema(table, SchemaType.Source);
                             adapter.Fill(table);
                             return table;
                         }
@@ -64,18 +66,18 @@ namespace MGS.Sqlite
             }
             catch (Exception ex)
             {
-                SqliteLogger.LogException(ex);
+                Debug.LogException(ex);
                 return null;
             }
         }
 
         /// <summary>
-        /// Execute command with args.
+        /// Execute command with parameters.
         /// </summary>
-        /// <param name="command"></param>
-        /// <param name="args"></param>
+        /// <param name="commandText"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public virtual object ExecuteScalar(string command, params SqliteParameter[] args)
+        public virtual object ExecuteScalar(string commandText, params SqliteParameter[] parameters)
         {
             try
             {
@@ -84,8 +86,8 @@ namespace MGS.Sqlite
                     conn.Open();
                     using (var cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = command;
-                        cmd.Parameters.AddRange(args);
+                        cmd.CommandText = commandText;
+                        cmd.Parameters.AddRange(parameters);
 
                         return cmd.ExecuteScalar();
                     }
@@ -93,18 +95,18 @@ namespace MGS.Sqlite
             }
             catch (Exception ex)
             {
-                SqliteLogger.LogException(ex);
+                Debug.LogException(ex);
                 return null;
             }
         }
 
         /// <summary>
-        /// Execute command with args.
+        /// Execute command with parameters.
         /// </summary>
-        /// <param name="command"></param>
-        /// <param name="args"></param>
+        /// <param name="commandText"></param>
+        /// <param name="parameters"></param>
         /// <returns>Number of rows affected.</returns>
-        public virtual int ExecuteNonQuery(string command, params SqliteParameter[] args)
+        public virtual int ExecuteNonQuery(string commandText, params SqliteParameter[] parameters)
         {
             try
             {
@@ -113,8 +115,8 @@ namespace MGS.Sqlite
                     conn.Open();
                     using (var cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = command;
-                        cmd.Parameters.AddRange(args);
+                        cmd.CommandText = commandText;
+                        cmd.Parameters.AddRange(parameters);
 
                         return cmd.ExecuteNonQuery();
                     }
@@ -122,19 +124,19 @@ namespace MGS.Sqlite
             }
             catch (Exception ex)
             {
-                SqliteLogger.LogException(ex);
+                Debug.LogException(ex);
                 return 0;
             }
         }
 
         /// <summary>
-        /// Execute update table to data base by command with args.
+        /// Execute update table to data base by command with parameters.
         /// </summary>
-        /// <param name="table"></param>
-        /// <param name="command"></param>
-        /// <param name="args"></param>
+        /// <param name="dataTable"></param>
+        /// <param name="commandText"></param>
+        /// <param name="parameters"></param>
         /// <returns>Number of rows affected.</returns>
-        public virtual int ExecuteNonQuery(DataTable table, string command, params SqliteParameter[] args)
+        public virtual int ExecuteNonQuery(DataTable dataTable, string commandText, params SqliteParameter[] parameters)
         {
             try
             {
@@ -143,18 +145,22 @@ namespace MGS.Sqlite
                     conn.Open();
                     using (var cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = command;
-                        cmd.Parameters.AddRange(args);
+                        cmd.CommandText = commandText;
+                        cmd.Parameters.AddRange(parameters);
 
                         using (var adapter = new SqliteDataAdapter(cmd))
                         {
+#if UNITY_STANDALONE
                             using (var builder = new SqliteCommandBuilder(adapter))
+#else
+                            using (var builder = new SqliteCmdBuilder(adapter))
+#endif
                             {
                                 adapter.InsertCommand = builder.GetInsertCommand();
                                 adapter.UpdateCommand = builder.GetUpdateCommand();
                                 adapter.DeleteCommand = builder.GetDeleteCommand();
 
-                                return adapter.Update(table);
+                                return adapter.Update(dataTable);
                             }
                         }
                     }
@@ -162,7 +168,7 @@ namespace MGS.Sqlite
             }
             catch (Exception ex)
             {
-                SqliteLogger.LogException(ex);
+                Debug.LogException(ex);
                 return 0;
             }
         }

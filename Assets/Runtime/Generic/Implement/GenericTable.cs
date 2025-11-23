@@ -10,8 +10,8 @@
  *  Description  :  Initial development version.
  *************************************************************************/
 
-using System.Collections.Generic;
 using System.Data;
+using System.Reflection;
 
 namespace MGS.Sqlite
 {
@@ -19,7 +19,7 @@ namespace MGS.Sqlite
     /// Generic sqlite table.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class GenericTable<T> : GenericView<T>, IGenericTable<T> where T : ITableRow, new()
+    public class GenericTable<T> : GenericView<T>, IGenericTable<T>
     {
         /// <summary>
         /// Instance of sqlite source.
@@ -27,9 +27,14 @@ namespace MGS.Sqlite
         protected new ISqliteTable source;
 
         /// <summary>
-        /// DataTable of last selected results.
+        /// DataTable of initial selected results.
         /// </summary>
         protected DataTable dataTable;
+
+        /// <summary>
+        /// Field info of primaryKey.
+        /// </summary>
+        protected FieldInfo primaryField;
 
         /// <summary>
         /// Constructor.
@@ -39,26 +44,9 @@ namespace MGS.Sqlite
         {
             source = table;
             dataTable = table.Select();
-        }
 
-        /// <summary>
-        /// Select rows from source.
-        /// </summary>
-        /// <param name="command">Select command [Select all if null].</param>
-        /// <returns>Selected rows.</returns>
-        public override ICollection<T> Select(string command = null)
-        {
-            var rows = base.Select(command);
-            if (rows == null)
-            {
-                return null;
-            }
-
-            //Set the primary key for data table.
-            var column = dataTable.Columns[new T().PrimaryKey];
-            dataTable.PrimaryKey = new DataColumn[] { column };
-
-            return rows;
+            var primaryKey = dataTable.PrimaryKey[0].ColumnName;
+            primaryField = typeof(T).GetField(primaryKey);
         }
 
         /// <summary>
@@ -68,8 +56,13 @@ namespace MGS.Sqlite
         /// <returns>Number of rows affected.</returns>
         public void Insert(T row)
         {
+            var key = primaryField.GetValue(row);
+            if (dataTable.Rows.Contains(key))
+            {
+                return;
+            }
             var newRow = dataTable.NewRow();
-            row.FillTo(newRow);
+            DataRowAdapter.FillFrom(newRow, row);
             dataTable.Rows.Add(newRow);
         }
 
@@ -80,7 +73,7 @@ namespace MGS.Sqlite
         /// <returns>Number of rows affected.</returns>
         public void Update(T row)
         {
-            var key = row.PrimaryValue;
+            var key = primaryField.GetValue(row);
             if (!dataTable.Rows.Contains(key))
             {
                 return;
@@ -88,7 +81,7 @@ namespace MGS.Sqlite
 
             var dataRow = dataTable.Rows.Find(key);
             dataRow.BeginEdit();
-            row.FillTo(dataRow);
+            DataRowAdapter.FillFrom(dataRow, row);
             dataRow.EndEdit();
         }
 
@@ -99,7 +92,7 @@ namespace MGS.Sqlite
         /// <returns>Number of rows affected.</returns>
         public void Delete(T row)
         {
-            Delete(row.PrimaryValue);
+            Delete(primaryField.GetValue(row));
         }
 
         /// <summary>

@@ -21,36 +21,36 @@ namespace MGS.Sqlite
     public interface ISqliteConnect
     {
         /// <summary>
-        /// Execute command with args.
+        /// Execute command with parameters.
         /// </summary>
-        /// <param name="command"></param>
-        /// <param name="args"></param>
+        /// <param name="commandText"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        DataTable ExecuteQuery(string command, params SqliteParameter[] args);
+        DataTable ExecuteQuery(string commandText, params SqliteParameter[] parameters);
 
         /// <summary>
-        /// Execute command with args.
+        /// Execute command with parameters.
         /// </summary>
-        /// <param name="command"></param>
-        /// <param name="args"></param>
+        /// <param name="commandText"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        object ExecuteScalar(string command, params SqliteParameter[] args);
+        object ExecuteScalar(string commandText, params SqliteParameter[] parameters);
 
         /// <summary>
-        /// Execute command with args.
+        /// Execute command with parameters.
         /// </summary>
-        /// <param name="command"></param>
-        /// <param name="args"></param>
+        /// <param name="commandText"></param>
+        /// <param name="parameters"></param>
         /// <returns>Number of rows affected.</returns>
-        int ExecuteNonQuery(string command, params SqliteParameter[] args);
+        int ExecuteNonQuery(string commandText, params SqliteParameter[] parameters);
 
         /// <summary>
-        /// Execute update table to data base by command with args.
+        /// Execute update table to data base by command with parameters.
         /// </summary>
-        /// <param name="table"></param>
-        /// <param name="command"></param>
-        /// <param name="args"></param>
+        /// <param name="dataTable"></param>
+        /// <param name="commandText"></param>
+        /// <param name="parameters"></param>
         /// <returns>Number of rows affected.</returns>
-        int ExecuteNonQuery(DataTable table, string command, params SqliteParameter[] args);
+        int ExecuteNonQuery(DataTable dataTable, string commandText, params SqliteParameter[] parameters);
     }
 }

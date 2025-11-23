@@ -27,17 +27,17 @@ namespace MGS.Sqlite
         public SqliteTable(string name, ISqliteConnect connect) : base(name, connect) { }
 
         /// <summary>
-        /// Update rows modifications to source table.
+        /// Update data table modifications to source table.
         /// </summary>
-        /// <param name="table"></param>
+        /// <param name="dataTable"></param>
         /// <returns>Number of rows affected.</returns>
-        public int Update(DataTable table)
+        public int Update(DataTable dataTable)
         {
-            var selectCmd = string.Format(SqliteConst.CMD_SELECT_FORMAT, "*", Name);
-            var lines = connect.ExecuteNonQuery(table, selectCmd);
+            var commandText = string.Format(SqliteConst.CMD_SELECT_FORMAT, "*", Name);
+            var lines = connect.ExecuteNonQuery(dataTable, commandText);
             if (lines > 0)
             {
-                table.AcceptChanges();
+                dataTable.AcceptChanges();
             }
             return lines;
         }

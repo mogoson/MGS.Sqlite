@@ -20,20 +20,20 @@ namespace MGS.Sqlite
     public interface IGenericDataBase : ISqliteDataBase
     {
         /// <summary>
-        /// Select data rows as view rows from data base.
+        /// Select data rows from data base.
         /// </summary>
-        /// <typeparam name="T">Type of view row.</typeparam>
-        /// <param name="command">Select command.</param>
+        /// <typeparam name="T">Type of row.</typeparam>
+        /// <param name="commandText">Select command text.</param>
         /// <returns></returns>
-        ICollection<T> Select<T>(string command) where T : IViewRow, new();
+        ICollection<T> Select<T>(string commandText);
 
         /// <summary>
-        /// Select sqlite view from data base as IGenericView.
+        /// Select sqlite view from data base.
         /// </summary>
-        /// <typeparam name="T">Type of view row.</typeparam>
+        /// <typeparam name="T">Type of row.</typeparam>
         /// <param name="name">Name of view.</param>
         /// <returns></returns>
-        IGenericView<T> SelectView<T>(string name) where T : IViewRow, new();
+        IGenericView<T> SelectView<T>(string name);
 
         /// <summary>
         /// Create sqlite table for the type T row. 
@@ -41,14 +41,14 @@ namespace MGS.Sqlite
         /// <typeparam name="T">Type of table row.</typeparam>
         /// <param name="name">Name of table.</param>
         /// <returns>Number of rows affected.</returns>
-        int CreateTable<T>(string name) where T : ITableRow, new();
+        int CreateTable<T>(string name);
 
         /// <summary>
-        /// Select sqlite table from data base as IGenericTable.
+        /// Select sqlite table from data base.
         /// </summary>
-        /// <typeparam name="T">Type of table row.</typeparam>
+        /// <typeparam name="T">Type of row.</typeparam>
         /// <param name="name">Name of table.</param>
         /// <returns></returns>
-        IGenericTable<T> SelectTable<T>(string name) where T : ITableRow, new();
+        IGenericTable<T> SelectTable<T>(string name);
     }
 }

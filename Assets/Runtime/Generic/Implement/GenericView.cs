@@ -11,7 +11,6 @@
  *************************************************************************/
 
 using System.Collections.Generic;
-using System.Data;
 
 namespace MGS.Sqlite
 {
@@ -19,7 +18,7 @@ namespace MGS.Sqlite
     /// Generic sqlite view.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class GenericView<T> : IGenericView<T> where T : IViewRow, new()
+    public class GenericView<T> : IGenericView<T>
     {
         /// <summary>
         /// Instance of sqlite view.
@@ -38,24 +37,16 @@ namespace MGS.Sqlite
         /// <summary>
         /// Select rows from source table.
         /// </summary>
-        /// <param name="command">Select command [Select all if null].</param>
+        /// <param name="commandText">Select command text (Select all if null).</param>
         /// <returns>Selected rows.</returns>
-        public virtual ICollection<T> Select(string command = null)
+        public virtual ICollection<T> Select(string commandText = null)
         {
-            var dataTable = source.Select(command);
+            var dataTable = source.Select(commandText);
             if (dataTable == null || dataTable.Rows == null || dataTable.Rows.Count == 0)
             {
                 return null;
             }
-
-            var rows = new List<T>();
-            foreach (DataRow dataRow in dataTable.Rows)
-            {
-                var row = new T();
-                row.FillFrom(dataRow);
-                rows.Add(row);
-            }
-            return rows;
+            return DataRowAdapter.FillFrom<T>(dataTable.Rows);
         }
     }
 }

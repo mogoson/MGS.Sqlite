@@ -17,13 +17,13 @@ namespace MGS.Sqlite
     /// <summary>
     /// Interface for generic sqlite view.
     /// </summary>
-    public interface IGenericView<T> where T : IViewRow, new()
+    public interface IGenericView<T>
     {
         /// <summary>
         /// Select rows from source table.
         /// </summary>
-        /// <param name="command">Select command [Select all if null].</param>
+        /// <param name="commandText">Select command text (Select all if null).</param>
         /// <returns>Selected rows.</returns>
-        ICollection<T> Select(string command = null);
+        ICollection<T> Select(string commandText = null);
     }
 }

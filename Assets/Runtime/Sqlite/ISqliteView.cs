@@ -27,8 +27,8 @@ namespace MGS.Sqlite
         /// <summary>
         /// Select rows from source table.
         /// </summary>
-        /// <param name="command">Select command [Select all if null].</param>
+        /// <param name="commandText">Select command text (Select all if null).</param>
         /// <returns></returns>
-        DataTable Select(string command = null);
+        DataTable Select(string commandText = null);
     }
 }

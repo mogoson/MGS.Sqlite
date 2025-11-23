@@ -23,18 +23,18 @@ namespace MGS.Sqlite
         /// <summary>
         /// Select data rows from data base.
         /// </summary>
-        /// <param name="command">Select command.</param>
+        /// <param name="commandText">Select command text.</param>
         /// <returns></returns>
-        DataTable Select(string command);
+        DataTable Select(string commandText);
         #endregion
 
         #region View
         /// <summary>
         /// Create sqlite view if not exists.
         /// </summary>
-        /// <param name="statement">Statement sql for view.</param>
-        /// <returns>Number of rows affected.</returns>
-        int CreateView(string statement);
+        /// <param name="schema">Schema of view.</param>
+        /// <returns></returns>
+        int CreateView(string schema);
 
         /// <summary>
         /// Select view from data base.
@@ -55,9 +55,9 @@ namespace MGS.Sqlite
         /// <summary>
         /// Create sqlite table if not exists.
         /// </summary>
-        /// <param name="statement">Statement sql for table.</param>
-        /// <returns>Number of rows affected.</returns>
-        int CreateTable(string statement);
+        /// <param name="schema">Schema of table.</param>
+        /// <returns></returns>
+        int CreateTable(string schema);
 
         /// <summary>
         /// Select table from data base.
@@ -78,9 +78,9 @@ namespace MGS.Sqlite
         /// <summary>
         /// Create sqlite trigger if not exists.
         /// </summary>
-        /// <param name="statement">Statement sql for trigger.</param>
+        /// <param name="schema">Schema of trigger.</param>
         /// <returns></returns>
-        int CreateTrigger(string statement);
+        int CreateTrigger(string schema);
 
         /// <summary>
         /// Create sqlite trigger if not exists.

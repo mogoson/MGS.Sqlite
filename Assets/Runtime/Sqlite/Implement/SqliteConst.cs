@@ -114,14 +114,14 @@ namespace MGS.Sqlite
 
         #region
         /// <summary>
-        /// Format of create if not exists command [type, statement].
+        /// Format of create if not exists command [type, schema].
         /// </summary>
         public const string CMD_CREATE_IF_FORMAT = "CREATE {0} IF NOT EXISTS {1}";
 
         /// <summary>
-        /// Format of select command [columns, name].
+        /// Format of delete command [type, name].
         /// </summary>
-        public const string CMD_SELECT_FORMAT = "SELECT {0} FROM {1}";
+        public const string CMD_DROP_FORMAT = "DROP {0} {1}";
 
         /// <summary>
         /// Format of select sqlite_master by type and name command [columns, type, name].
@@ -129,16 +129,31 @@ namespace MGS.Sqlite
         public const string CMD_SELECT_MASTER_TYPE_NAME_FORMAT = "select {0} from sqlite_master where type='{1}' and name='{2}'";
 
         /// <summary>
-        /// Format of delete command [type, name].
+        /// Format of select command [columns, name].
         /// </summary>
-        public const string CMD_DROP_FORMAT = "DROP {0} {1}";
+        public const string CMD_SELECT_FORMAT = "SELECT {0} FROM {1}";
+
+        /// <summary>
+        /// Format of insert command [tableName, columns, values].
+        /// </summary>
+        public const string CMD_INSERT_FORMAT = "INSERT INTO `{0}` ({1}) VALUES ({2})";
+
+        /// <summary>
+        /// Format of update command [tableName, setTex, whereTex].
+        /// </summary>
+        public const string CMD_UPDATE_FORMAT = "UPDATE `{0}` SET {1} WHERE {2}";
+
+        /// <summary>
+        /// Format of delete command [tableName, whereTex].
+        /// </summary>
+        public const string CMD_DELETE_FORMAT = "DELETE FROM `{0}` WHERE {1}";
         #endregion
 
         #region
         /// <summary>
-        /// Format of trigger statement [name, when, action, table, scope, where, code].
+        /// Format of trigger schema [name, when, action, table, scope, where, code].
         /// </summary>
-        public const string STMT_TRIGGER_FORMAT = "{0} {1} {2} ON {3} {4} {5} BEGIN {6}; END";
+        public const string SCHM_TRIGGER_FORMAT = "{0} {1} {2} ON {3} {4} {5} BEGIN {6}; END";
         #endregion
 
         #region
