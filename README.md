@@ -6,6 +6,11 @@
 
 - Generic sqlite data view and table for custom data class.
 
+## Platform
+
+- Standalone.
+- Android.
+
 ## Ability
 
 - Create data base file, view table runtime.

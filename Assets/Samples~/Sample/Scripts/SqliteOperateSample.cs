@@ -10,17 +10,29 @@
  *  Description  :  Initial development version.
  *************************************************************************/
 
-using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 
 namespace MGS.Sqlite.Sample
 {
+    public class DeveloperRowSample
+    {
+        //Must use 'SqliteField' to mark fields if you need create table for it runtime.
+
+        [SqliteField(PrimaryKey = true)]
+        public int id;
+
+        [SqliteField]
+        public string name;
+    }
+
     public class SqliteOperateSample : MonoBehaviour
     {
         GenericDataBase dataBase;
-        IGenericTable<PersonInfoSample> table;
-        ICollection<PersonInfoSample> persons;
+        IGenericTable<DeveloperRowSample> table;
+        ICollection<DeveloperRowSample> developers;
 
         string upd_ID = string.Empty;
         string upd_Name = string.Empty;
@@ -31,15 +43,23 @@ namespace MGS.Sqlite.Sample
 
         private void Awake()
         {
-            var dbFile = $"{Environment.CurrentDirectory}/DataBase/TestDB.db";
+            var dbFile = $"{Application.persistentDataPath}/DataBase/TestDB.db";
+            if (!File.Exists(dbFile))
+            {
+                GenericDataBase.CreateFile(dbFile);
+            }
+            Debug.Log(dbFile);
             dataBase = new GenericDataBase(dbFile);
 
-            //Create table if not exists.
-            var lines = dataBase.CreateTable<PersonInfoSample>("table_person");
-            Debug.LogFormat("CreateTable lines {0}", lines);
+            var tableName = "table_developer";
+            table = dataBase.SelectTable<DeveloperRowSample>(tableName);
+            if (table == null)
+            {
+                dataBase.CreateTable<DeveloperRowSample>(tableName);
+                table = dataBase.SelectTable<DeveloperRowSample>(tableName);
+            }
 
-            table = dataBase.SelectTable<PersonInfoSample>("table_person");
-            persons = table.Select();
+            developers = table.Select();
         }
 
         private void OnGUI()
@@ -73,10 +93,10 @@ namespace MGS.Sqlite.Sample
             }
             GUILayout.EndHorizontal();
 
-            if (persons != null && persons.Count > 0)
+            if (developers != null && developers.Count > 0)
             {
                 pos = GUILayout.BeginScrollView(pos, "Box");
-                foreach (var item in persons)
+                foreach (var item in developers)
                 {
                     GUILayout.BeginHorizontal();
                     GUILayout.Label(item.id.ToString());
@@ -92,28 +112,19 @@ namespace MGS.Sqlite.Sample
 
         void InsertRow(string pID, string pName)
         {
-            table.Insert(new PersonInfoSample { id = int.Parse(pID), name = pName });
+            table.Insert(new DeveloperRowSample { id = int.Parse(pID), name = pName });
             var lines = table.Commit();
-            persons = table.Select();
+            developers = table.Select();
 
             Debug.LogFormat("Insert lines {0}", lines);
         }
 
         void UpdateRow(string id, string name)
         {
-            PersonInfoSample person = null;
-            foreach (var item in persons)
-            {
-                if (item.id.ToString() == id)
-                {
-                    item.name = name;
-                    person = item;
-                }
-            }
-
-            table.Update(person);
+            var developer = developers.First(dev => dev.id.ToString() == id);
+            table.Update(developer);
             var lines = table.Commit();
-            persons = table.Select();
+            developers = table.Select();
 
             Debug.LogFormat("Update lines {0}", lines);
         }
@@ -122,7 +133,7 @@ namespace MGS.Sqlite.Sample
         {
             table.Delete(del_ID);
             var lines = table.Commit();
-            persons = table.Select();
+            developers = table.Select();
 
             Debug.LogFormat("Delete lines {0}", lines);
         }
