@@ -17,7 +17,7 @@
     "samples": [
         {
             "displayName": "Sample",
-            "description": "Sample generic sqlite data view and table for custom data class.",
+            "description": "Sample for generic sqlite data view and table for custom data class.",
             "path": "Samples~/Sample"
         }
     ]
